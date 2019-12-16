@@ -5,5 +5,5 @@ package com.coocaa.http_0_1;
  * @Author: LEGION XiaoLuo
  * @ Description:
  */
-public class JsonCallBack extends AbstractCallBack {
+public class StringCallBack extends AbstractCallBack {
 }
