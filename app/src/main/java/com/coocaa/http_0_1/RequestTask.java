@@ -1,8 +1,10 @@
 package com.coocaa.http_0_1;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 /**
  * @author LEGION XiaoLuo
@@ -19,9 +21,9 @@ public class RequestTask extends AsyncTask<Void, Integer, Object> {
     @Override
     protected Object doInBackground(Void... voids) {
         try {
-            String result = HttpUrlConnectionUtil.execute(mRequest);
-            return result;
-        } catch (IOException e) {
+            HttpURLConnection connection = HttpUrlConnectionUtil.execute(mRequest);
+            return mRequest.mICallBack.parse(connection);
+        } catch (Exception e) {
             e.printStackTrace();
             return e;
         }
@@ -30,10 +32,10 @@ public class RequestTask extends AsyncTask<Void, Integer, Object> {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        if (o instanceof String) {
-            mRequest.mICallBack.success((String) o);
-        }else{
+        if (o instanceof Exception) {
             mRequest.mICallBack.onFailure((Exception) o);
+        }else{
+            mRequest.mICallBack.success(o);
         }
     }
 }

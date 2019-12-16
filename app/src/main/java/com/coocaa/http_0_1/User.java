@@ -1,4 +1,4 @@
-package com.stay4it.test_http;
+package com.coocaa.http_0_1;
 
 /**
  * Created by Stay on 4/7/15.

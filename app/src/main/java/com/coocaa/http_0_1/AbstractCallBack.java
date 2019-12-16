@@ -17,7 +17,7 @@ import java.net.HttpURLConnection;
  * @description
  * @created on 2019/12/12
  */
-public abstract class JsonCallBack<T> implements ICallBack<T> {
+public abstract class AbstractCallBack<T> implements ICallBack<T> {
 
     @Override
     public T parse(HttpURLConnection connection) throws IOException, JSONException {
@@ -34,12 +34,14 @@ public abstract class JsonCallBack<T> implements ICallBack<T> {
             out.flush();
             out.close();
             String result = new String(out.toByteArray());
-            JSONObject jsonObject = new JSONObject(result);
-            JSONObject data = jsonObject.optJSONObject("data");
-            Gson gson = new Gson();
-            Type type = ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-            return gson.fromJson(data.toString(),type);
+            return bindData(result);
         }
         return null;
     }
+    /**
+     * @param result 网络请求返回值
+     * @return T 转化类型
+     *
+     * */
+    public abstract T bindData(String result) throws JSONException;
 }

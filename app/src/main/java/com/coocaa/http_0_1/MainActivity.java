@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void testHttpPostOnSubThread(){
+    private void testHttpPostOnSubThread() {
         String url = "http://api.stay4it.com/v1/public/core/?service=user.login";
         String content = "account=stay4it&password=123456";
         Request request = new Request(url, Request.RequestMethod.POST);
-        request.setICallBack(new ICallBack() {
+        request.setICallBack(new JsonCallBack<User>() {
             @Override
-            public void success(String result) {
+            public void success(User result) {
                 Log.e("stay", "testHttpGet return:" + result);
             }
 
